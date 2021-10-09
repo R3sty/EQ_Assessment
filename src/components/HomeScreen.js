@@ -15,6 +15,7 @@ const HomeScreen = () => {
           color="secondary"
           onClick={() => setView("start assessment")}
         >
+          {console.log(view)}
           Start
         </Button>
       </Box>

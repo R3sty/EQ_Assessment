@@ -1,9 +1,7 @@
-import React, { useState } from "react";
-import { AssessmentContext } from "../Helpers/Contexts";
+import React from "react";
 //material ui
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
-import Typography from "@material-ui/core/Typography";
 
 const checkResults = () => {
   console.log("Check Results");

@@ -58,22 +58,19 @@ const QuestionCard = () => {
         return parsedValue - 4;
       }
     };
-
     //update score
-    {
-      if (isPositive)
-        setScore({
-          ...score,
-          [category]: parsedValue + score[category],
-          totalScore: parsedValue + score.totalScore,
-        });
-      else
-        setScore({
-          ...score,
-          [category]: reverseScore() + score[category],
-          totalScore: reverseScore() + score.totalScore,
-        });
-    }
+    if (isPositive)
+      setScore({
+        ...score,
+        [category]: parsedValue + score[category],
+        totalScore: parsedValue + score.totalScore,
+      });
+    else
+      setScore({
+        ...score,
+        [category]: reverseScore() + score[category],
+        totalScore: reverseScore() + score.totalScore,
+      });
     setValue("");
 
     console.log("category----->", category);
@@ -83,7 +80,7 @@ const QuestionCard = () => {
     console.log("reverseParsedValue----->", reverseScore());
     console.log("score----->", score);
   };
-
+  console.log(view);
   const nextQuestion = () => {
     //check if a value has been selected
     if (value === "") {
