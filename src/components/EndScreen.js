@@ -4,6 +4,7 @@ import { AssessmentContext } from "../Helpers/Contexts";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import { allQuestions } from "../Helpers/questionBank";
+import { resultsDescription, getDescription } from "../Helpers/description";
 
 const checkResults = () => {
   console.log("Check Results");
@@ -40,7 +41,24 @@ const EndScreen = () => {
   const averageSelfManagementScore =
     score.selfManagement / selfManagementQuestions.length;
 
-  //link to description
+  const setDescription = (averageScore, skill, level) => {
+    if (averageScore >= 4.0) {
+      level = "high";
+      return getDescription(skill, level);
+    }
+    if (averageScore >= 3.0) {
+      level = "medium";
+      return getDescription(skill, level);
+    } else {
+      level = "low";
+      return getDescription(skill, level);
+    }
+  };
+
+  setDescription(averageEmpathyScore, "empathy");
+
+  console.log("Average Score--->", averageScore);
+  console.log("description---->", setDescription(averageScore, "empathy"));
 
   return (
     <div>
@@ -49,6 +67,8 @@ const EndScreen = () => {
         <Button variant="contained" color="secondary" onClick={checkResults}>
           Check results
         </Button>
+        <h1>Over all Results</h1>
+        <p1>{setDescription(averageScore, "overAll")}</p1>
       </Box>
     </div>
   );
