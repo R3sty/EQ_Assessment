@@ -11,7 +11,15 @@ import { Box } from "@material-ui/core";
 
 function App() {
   const [view, setView] = useState("home");
-  const [score, setScore] = useState(0);
+  const [value, setValue] = useState(0);
+  const [score, setScore] = useState({
+    selfAwareness: value,
+    selfManagement: value,
+    socialSkills: value,
+    empathy: value,
+    motivation: value,
+    totalScore: value,
+  });
 
   return (
     <React.Fragment>
@@ -24,7 +32,7 @@ function App() {
       >
         <Grid item xs="auto">
           <AssessmentContext.Provider
-            value={{ view, setView, score, setScore }}
+            value={{ view, setView, score, setScore, value, setValue }}
           >
             <Box textAlign="center">
               <h1>EQ Assessment</h1>

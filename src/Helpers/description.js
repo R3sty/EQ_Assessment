@@ -1,0 +1,8 @@
+export const overallDescription = [
+  {
+    high: "Your emotional intelligence is developed. You understand differences in colleagues’ motivations and are able to adjust your approach to encourage and support them in the workplace. You can understand and manage your emotions. You also have a sense of how your actions affect those around you. You may be able to see signs of emotional swings in those around you and use active listening skills to help them cope with tough situations. You are assertive and consider the needs of others as well as your own when making decisions and eliciting solutions.",
+    medium:
+      "Your emotional intelligence is developing. While you may have some areas where you display high emotional intelligence, there are times or situations where you find it difficult to keep your emotions in check. There may be times when you find it difficult to understand the motivations of colleagues and you struggle to provide motivation to direct reports as they work to achieve their tasks. You would benefit by considering the events and situations that trigger you and those around you, then come up with more supportive responses. A key point to remember as you develop your emotional intelligence is, as you work on one area, you are building your skills in all areas. ",
+    low: "Your emotional intelligence needs attention. You may find that you let your emotions control your behaviors. You may speak without thinking about the impact your words and actions have on others. A good next step for you is to understand your own feelings and consider the emotional factors that result in any given behavior. These skills will help you improve your emotional intelligence across the whole spectrum.",
+  },
+];

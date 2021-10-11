@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import FormLabel from "@mui/material/FormLabel";
 import Box from "@mui/material/Box";
 
 //get total number of questions
@@ -16,48 +17,47 @@ const randomQuestions = allQuestions.sort(() => 0.5 - Math.random());
 
 const QuestionCard = () => {
   const { view, setView } = useContext(AssessmentContext);
-  const [value, setValue] = useState("");
-  const [score, setScore] = useState({
-    selfAwareness: 0,
-    selfManagement: 0,
-    socialSkills: 0,
-    empathy: 0,
-    motivation: 0,
-    totalScore: 0,
-  });
+  const { value, setValue } = useContext(AssessmentContext);
+  const { score, setScore } = useContext(AssessmentContext);
   const [currentQuestion, setCurrentQuestion] = useState(0);
 
-  const handleScore = (event) => {
-    if (value === "") {
-      setValue(0);
-    }
-    // console.log(event.target.value);
+  const handleRadioChange = (event) => {
     setValue(event.target.value);
   };
 
   const category = allQuestions[currentQuestion].category;
   const isPositive = allQuestions[currentQuestion].positive;
+  const parsedValue = parseInt(value);
+
+  const reverseScore = () => {
+    if (parsedValue === 1) {
+      return parsedValue + 4;
+    }
+    if (parsedValue === 2) {
+      return parsedValue + 2;
+    }
+    if (parsedValue === 3) {
+      return parsedValue;
+    }
+    if (parsedValue === 4) {
+      return parsedValue - 2;
+    }
+    if (parsedValue === 5) {
+      return parsedValue - 4;
+    }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    //check if the current question is the last question
+    if (currentQuestion === totalQuestions - 1) {
+      setFinalScore();
+    } else {
+      nextQuestion();
+    }
+  };
 
   const updateScore = () => {
-    const parsedValue = parseInt(value);
-
-    const reverseScore = () => {
-      if (parsedValue === 1) {
-        return parsedValue + 4;
-      }
-      if (parsedValue === 2) {
-        return parsedValue + 2;
-      }
-      if (parsedValue === 3) {
-        return parsedValue;
-      }
-      if (parsedValue === 4) {
-        return parsedValue - 2;
-      }
-      if (parsedValue === 5) {
-        return parsedValue - 4;
-      }
-    };
     //update score
     if (isPositive)
       setScore({
@@ -71,8 +71,6 @@ const QuestionCard = () => {
         [category]: reverseScore() + score[category],
         totalScore: reverseScore() + score.totalScore,
       });
-    setValue("");
-
     console.log("category----->", category);
     console.log("isPositive----->", isPositive);
     console.log("value----->", value);
@@ -80,16 +78,17 @@ const QuestionCard = () => {
     console.log("reverseParsedValue----->", reverseScore());
     console.log("score----->", score);
   };
-  console.log(view);
+
   const nextQuestion = () => {
+    updateScore();
     //check if a value has been selected
     if (value === "") {
       alert("Please answer before proceeding to the next question");
       return;
     }
     //check if the question is the first question
-    updateScore();
     setCurrentQuestion(currentQuestion + 1);
+    setValue("");
   };
 
   const setFinalScore = () => {
@@ -102,20 +101,15 @@ const QuestionCard = () => {
       <Typography gutterBottom variant="h6" component="div" color="secondary">
         Question {currentQuestion + 1} of {totalQuestions}
       </Typography>
-      <Typography variant="h5" color="primary" align="left">
-        {randomQuestions[currentQuestion].question}
-      </Typography>
+      <Typography variant="h5" color="primary" align="left"></Typography>
       <br />
       <br />
-      <Box textAlign="center">
-        <FormControl>
-          <RadioGroup
-            aria-label="options"
-            name="radio-buttons-group"
-            value={value}
-            onChange={handleScore}
-            required={true}
-          >
+      <form onSubmit={handleSubmit}>
+        <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+          <FormLabel component="legend">
+            {randomQuestions[currentQuestion].question}
+          </FormLabel>
+          <RadioGroup name="EQ test" value={value} onChange={handleRadioChange}>
             <FormControlLabel
               value={1}
               control={<Radio />}
@@ -142,35 +136,24 @@ const QuestionCard = () => {
               label="Almost always true"
             />
           </RadioGroup>
+          <Box textAlign="right">
+            {currentQuestion === allQuestions.length - 1 ? (
+              <Button type="submit" variant="contained" color="secondary">
+                See results
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                //update score and set next question
+                variant="contained"
+                color="secondary"
+              >
+                Next question
+              </Button>
+            )}
+          </Box>
         </FormControl>
-      </Box>
-      <Box textAlign="right">
-        {currentQuestion === allQuestions.length - 1 ? (
-          <Button
-            type="submit"
-            variant="contained"
-            color="secondary"
-            //set the final score and set view to "end"
-            onClick={() => {
-              setFinalScore();
-            }}
-          >
-            See results
-          </Button>
-        ) : (
-          <Button
-            type="submit"
-            //update score and set next question
-            onClick={() => {
-              nextQuestion();
-            }}
-            variant="contained"
-            color="secondary"
-          >
-            Next question
-          </Button>
-        )}
-      </Box>
+      </form>
     </Box>
   );
 };
