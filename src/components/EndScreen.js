@@ -4,6 +4,9 @@ import { AssessmentContext } from "../Helpers/Contexts";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import { allQuestions } from "../Helpers/questionBank";
+import TextField from "@material-ui/core/TextField";
+import { sendEmail } from "../email";
+
 import { resultsDescription, getDescription } from "../Helpers/description";
 
 const checkResults = () => {
@@ -56,20 +59,59 @@ const EndScreen = () => {
   };
 
   setDescription(averageEmpathyScore, "empathy");
+  setDescription(averageSocialSkillsScore, "socialSkills");
 
   console.log("Average Score--->", averageScore);
   console.log("description---->", setDescription(averageScore, "empathy"));
 
   return (
     <div>
-      <h1>This is the end screen </h1>
       <Box textAlign="center">
-        <Button variant="contained" color="secondary" onClick={checkResults}>
-          Check results
-        </Button>
-        <h1>Over all Results</h1>
-        <p1>{setDescription(averageScore, "overAll")}</p1>
+        <h1>Your Results</h1>
+        <h3>{setDescription(averageScore, "overAll")}</h3>
       </Box>
+      {/* <Box textAlign="center">
+        <h3>Self Awareness</h3>
+        <p>{setDescription(averageSelfAwarenessScore, "selfAwareness")}</p>
+      </Box>
+      <Box textAlign="center">
+        <h3>Self Management</h3>
+        <p>{setDescription(averageSelfManagementScore, "selfManagement")}</p>
+      </Box>
+      <Box textAlign="center">
+        <h3>Empathy</h3>
+        <p>{setDescription(averageEmpathyScore, "empathy")}</p>
+      </Box>
+      <Box textAlign="center">
+        <h3>Social Skills</h3>
+        <p>{setDescription(averageSocialSkillsScore, "socialSkills")}</p>
+      </Box>
+      <Box textAlign="center">
+        <h3>Motivation</h3>
+        <p>{setDescription(averageMotivationScore, "motivation")}</p>
+      </Box> */}
+      <Box textAlign="center">
+        <h2>To get your full report, enter your email address below</h2>
+      </Box>
+      <Box
+        component="form"
+        sx={{
+          "& > :not(style)": { m: 1, width: "25ch" },
+        }}
+        noValidate
+        autoComplete="off"
+      >
+        <TextField
+          id="standard-basic"
+          label="Enter your email"
+          variant="standard"
+        />
+      </Box>
+      <br />
+
+      <Button variant="contained" color="secondary" onClick={sendEmail}>
+        Send me the full report
+      </Button>
     </div>
   );
 };

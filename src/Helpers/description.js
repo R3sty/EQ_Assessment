@@ -36,7 +36,7 @@ export const resultsDescription = [
     },
   },
   {
-    category: "Social Skills",
+    category: "socialSkills",
     description: {
       high: "Your social skills are developed. You are able to recognize your feeling and those of the people around you. You can adopt your behavior and communication style to make others comfortable in work and social situations. Then consider the best course based on what is beneficial for all concerned. When engaged in negotiations or conflicts you look for solutions that will create win-win outcomes. You are skilled at eliciting ideas from others and making them feel their opinions are valuable.",
       medium:
@@ -45,7 +45,7 @@ export const resultsDescription = [
     },
   },
   {
-    category: "Motivation",
+    category: "motivation",
     description: {
       high: "You are intrinsically motivated. This helps you to not only get tasks done at a high level but also motivate others to achieve success in their endeavors. You are probably a very optimistic person who lifts the spirits of those around you and looks for the teaching point in challenging situations. As a person with intrinsic motivation, you are able to set challenging goals for yourself and achieve them with little need for external praise or recognition. To continue developing your motivation, consider how your moods and feelings impact those around you.",
       medium:

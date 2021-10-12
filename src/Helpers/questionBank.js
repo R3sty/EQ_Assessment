@@ -15,11 +15,11 @@ export const allQuestions = [
     positive: true,
     question: "I can distinguish between my emotions and moods",
   },
-  {
-    category: "selfAwareness",
-    positive: true,
-    question: "I understand how my physical condition affects my emotions.",
-  },
+  // {
+  //   category: "selfAwareness",
+  //   positive: true,
+  //   question: "I understand how my physical condition affects my emotions.",
+  // },
   // {
   //   category: "selfAwareness",
   //   positive: true,
@@ -35,11 +35,11 @@ export const allQuestions = [
   //   positive: true,
   //   question: "I understand my strengths and weaknesses",
   // },
-  {
-    category: "selfAwareness",
-    positive: false,
-    question: "I don't know why I feel the way I do.",
-  },
+  // {
+  //   category: "selfAwareness",
+  //   positive: false,
+  //   question: "I don't know why I feel the way I do.",
+  // },
   // {
   //   category: "selfAwareness",
   //   positive: false,
