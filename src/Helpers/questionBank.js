@@ -35,11 +35,11 @@ export const allQuestions = [
   //   positive: true,
   //   question: "I understand my strengths and weaknesses",
   // },
-  // {
-  //   category: "selfAwareness",
-  //   positive: false,
-  //   question: "I don't know why I feel the way I do.",
-  // },
+  {
+    category: "selfAwareness",
+    positive: false,
+    question: "I don't know why I feel the way I do.",
+  },
   // {
   //   category: "selfAwareness",
   //   positive: false,

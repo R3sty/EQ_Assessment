@@ -1,13 +1,30 @@
 import React, { useState } from "react";
 import { AssessmentContext } from "./Helpers/Contexts";
-
 //components
-import HomeScreen from "./components/HomeScreen";
-import QuestionCard from "./components/QuestionCard";
-import EndScreen from "./components/EndScreen";
+import HomeScreen from "./pages/HomeScreen";
+import QuestionCard from "./pages/QuestionCard";
+import EndScreen from "./pages/EndScreen";
 //material-ui
+import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import { Box } from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#9f2827",
+    },
+    secondary: {
+      main: "#E7B800",
+    },
+  },
+  typography: {
+    fontFamily: "Lato",
+    fontWeightLight: 300,
+    fontWeightRegular: 400,
+    fontWeightBold: 700,
+  },
+});
 
 function App() {
   const [view, setView] = useState("home");
@@ -22,28 +39,29 @@ function App() {
   });
 
   return (
-    <React.Fragment>
+    <ThemeProvider theme={theme}>
       <Grid
         container
-        spacing={0}
         justifyContent="center"
         alignItems="center"
-        style={{ height: "100vh" }}
+        direction="column"
+        style={{ minHeight: "100vh" }}
+        spacing={5}
       >
-        <Grid item xs="auto">
-          <AssessmentContext.Provider
-            value={{ view, setView, score, setScore, value, setValue }}
-          >
-            <Box textAlign="center">
-              <h1>EQ Assessment</h1>
-              {view === "home" && <HomeScreen />}
-              {view === "start assessment" && <QuestionCard />}
-              {view === "end" && <EndScreen />}
-            </Box>
-          </AssessmentContext.Provider>
+        <Grid item>
+          <Typography variant="h2" color="primary">
+            EQ Assessment
+          </Typography>
         </Grid>
+        <AssessmentContext.Provider
+          value={{ view, setView, score, setScore, value, setValue }}
+        >
+          {view === "home" && <HomeScreen />}
+          {view === "start assessment" && <QuestionCard />}
+          {view === "end" && <EndScreen />}
+        </AssessmentContext.Provider>
       </Grid>
-    </React.Fragment>
+    </ThemeProvider>
   );
 }
 
