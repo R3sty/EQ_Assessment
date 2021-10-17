@@ -45,6 +45,7 @@ const QuestionCard = () => {
   const { score, setScore } = useContext(AssessmentContext);
   const [currentQuestion, setCurrentQuestion] = useState(0);
 
+  console.log(view);
   const handleRadioChange = (event) => {
     setValue(event.target.value);
   };
@@ -71,19 +72,7 @@ const QuestionCard = () => {
     }
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    //check if the current question is the last question
-
-    if (currentQuestion === totalQuestions - 1) {
-      setFinalScore();
-    } else {
-      nextQuestion();
-    }
-  };
-
   const updateScore = () => {
-    //update score
     if (isPositive)
       setScore({
         ...score,
@@ -96,6 +85,8 @@ const QuestionCard = () => {
         [category]: reverseScore() + score[category],
         totalScore: reverseScore() + score.totalScore,
       });
+    console.log("parsedValue----->", parsedValue);
+    console.log("reverseParsedValue----->", reverseScore());
   };
 
   const nextQuestion = () => {
@@ -104,22 +95,28 @@ const QuestionCard = () => {
       return;
     }
     updateScore();
-    //check if a value has been selected
-    //check if the question is the first question
     setCurrentQuestion(currentQuestion + 1);
     setValue("");
-    console.log("category----->", category);
-    console.log("isPositive----->", isPositive);
-    console.log("value----->", value);
-    console.log("parsedValue----->", parsedValue);
-    console.log("reverseParsedValue----->", reverseScore());
-    console.log("score----->", score);
   };
 
   const setFinalScore = () => {
     updateScore();
     setView("end");
   };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    //check if the current question is the last question
+    if (currentQuestion === totalQuestions - 1) {
+      setFinalScore();
+    } else {
+      nextQuestion();
+    }
+  };
+
+  console.log("category----->", category);
+  console.log("isPositive----->", isPositive);
+  console.log("value----->", value);
 
   return (
     <Container>

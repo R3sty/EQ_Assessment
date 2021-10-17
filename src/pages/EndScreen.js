@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { AssessmentContext } from "../Helpers/Contexts";
 //material ui
 import Button from "@material-ui/core/Button";
@@ -28,34 +28,37 @@ const useStyles = makeStyles({
 const EndScreen = () => {
   const classes = useStyles();
   const { score, setScore } = useContext(AssessmentContext);
-  const [email, setEmail] = useState("");
+  //const [email, setEmail] = useState("");
+
+  setScore(score);
+  console.log("score from endscreen----->", score);
 
   const averageScore = score.totalScore / allQuestions.length;
   //number of questions
-  const selfAwarenessQuestions = allQuestions.filter(
-    (question) => question.category === "selfAwareness"
-  );
-  const empathyQuestions = allQuestions.filter(
-    (question) => question.category === "empathy"
-  );
-  const motivationQuestions = allQuestions.filter(
-    (question) => question.category === "motivation"
-  );
-  const socialSkillsQuestions = allQuestions.filter(
-    (question) => question.category === "socialSkills"
-  );
-  const selfManagementQuestions = allQuestions.filter(
-    (question) => question.category === "selfManagement"
-  );
+  // const selfAwarenessQuestions = allQuestions.filter(
+  //   (question) => question.category === "selfAwareness"
+  // );
+  // const empathyQuestions = allQuestions.filter(
+  //   (question) => question.category === "empathy"
+  // );
+  // const motivationQuestions = allQuestions.filter(
+  //   (question) => question.category === "motivation"
+  // );
+  // const socialSkillsQuestions = allQuestions.filter(
+  //   (question) => question.category === "socialSkills"
+  // );
+  // const selfManagementQuestions = allQuestions.filter(
+  //   (question) => question.category === "selfManagement"
+  // );
   //average score for each category
-  const averageSelfAwarenessScore =
-    score.selfAwareness / selfAwarenessQuestions.length;
-  const averageEmpathyScore = score.empathy / empathyQuestions.length;
-  const averageMotivationScore = score.motivation / motivationQuestions.length;
-  const averageSocialSkillsScore =
-    score.socialSkills / socialSkillsQuestions.length;
-  const averageSelfManagementScore =
-    score.selfManagement / selfManagementQuestions.length;
+  // const averageSelfAwarenessScore =
+  //   score.selfAwareness / selfAwarenessQuestions.length;
+  // const averageEmpathyScore = score.empathy / empathyQuestions.length;
+  // const averageMotivationScore = score.motivation / motivationQuestions.length;
+  // const averageSocialSkillsScore =
+  //   score.socialSkills / socialSkillsQuestions.length;
+  // const averageSelfManagementScore =
+  //   score.selfManagement / selfManagementQuestions.length;
 
   const setDescription = (averageScore, skill, level) => {
     if (averageScore >= 4.0) {
@@ -76,17 +79,12 @@ const EndScreen = () => {
     console.log(e.target.value);
   };
 
-  console.log(email);
+  // setDescription(averageEmpathyScore, "empathy");
+  // setDescription(averageSocialSkillsScore, "socialSkills");
 
-  setDescription(averageEmpathyScore, "empathy");
-  setDescription(averageSocialSkillsScore, "socialSkills");
-
-  console.log("Average Score--->", averageScore);
-  console.log("description---->", setDescription(averageScore, "empathy"));
+  console.log("Average Score from EndScreen--->", averageScore);
 
   // get the information entered by the user
-
-  console.log("email--->", email);
 
   return (
     <Container>
@@ -97,7 +95,7 @@ const EndScreen = () => {
         <Box mt={2}></Box>
         <Typography>{setDescription(averageScore, "overAll")}</Typography>
       </Grid>
-      <Box textAlign="center">
+      {/* <Box textAlign="center">
         <h3>Self Awareness</h3>
         <p>{setDescription(averageSelfAwarenessScore, "selfAwareness")}</p>
       </Box>
@@ -116,11 +114,11 @@ const EndScreen = () => {
       <Box textAlign="center">
         <h3>Motivation</h3>
         <p>{setDescription(averageMotivationScore, "motivation")}</p>
-      </Box>
+      </Box> */}
       <Box mt={2}></Box>
 
       <Grid>
-        <Typography textAlign="center" variant="h6" align="center">
+        <Typography variant="h6" align="center">
           To get your full report, enter your email address below
         </Typography>
       </Grid>
