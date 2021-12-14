@@ -5,6 +5,7 @@ import { AssessmentContext } from "./Helpers/Contexts";
 import HomeScreen from "./pages/HomeScreen";
 import QuestionCard from "./pages/QuestionCard";
 import EndScreen from "./pages/EndScreen";
+import ConfirmationScreen from "./pages/ConfirmationScreen";
 //material-ui
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -60,6 +61,7 @@ function App() {
           {view === "home" && <HomeScreen />}
           {view === "start assessment" && <QuestionCard />}
           {view === "end" && <EndScreen />}
+          {view === "confirmation" && <ConfirmationScreen />}
         </AssessmentContext.Provider>
       </Grid>
     </ThemeProvider>

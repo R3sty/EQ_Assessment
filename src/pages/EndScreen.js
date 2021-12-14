@@ -13,7 +13,7 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 const sgMail = require("@sendgrid/mail");
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+sgMail.setApiKey(process.env.REACT_APP_SENDGRID_API_KEY);
 
 const useStyles = makeStyles({
   title: {
@@ -34,6 +34,7 @@ const EndScreen = () => {
   const { score, setScore } = useContext(AssessmentContext);
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const { view, setView } = useContext(AssessmentContext);
 
   setScore(score);
   console.log("score from endscreen----->", score);
@@ -109,7 +110,7 @@ const EndScreen = () => {
         <Box mt={2}></Box>
         <Typography>{setDescription(averageScore, "overAll")}</Typography>
       </Grid>
-      <Box textAlign="center">
+      {/* <Box textAlign="center">
         <h3>Self Awareness</h3>
         <p>{setDescription(averageSelfAwarenessScore, "selfAwareness")}</p>
       </Box>
@@ -128,7 +129,7 @@ const EndScreen = () => {
       <Box textAlign="center">
         <h3>Motivation</h3>
         <p>{setDescription(averageMotivationScore, "motivation")}</p>
-      </Box>
+      </Box> */}
       <Box mt={2}></Box>
 
       <Grid>
@@ -168,30 +169,13 @@ const EndScreen = () => {
           variant="contained"
           color="primary"
           className={classes.button}
-          onClick={() => postEmail()}
+          onClick={() => {
+            setView("confirmation");
+            postEmail();
+          }}
         >
           Submit
         </Button>
-
-        {/* <form onSubmit={postEmail()}>
-          <TextField
-            id="standard-basic"
-            label="Enter your email"
-            variant="standard"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Grid align="center">
-            <Button
-              type="submit"
-              variant="contained"
-              color="secondary"
-              //set the state of the email to the email entered by the user onClick
-              className={classes.button}
-            >
-              Send me the full report
-            </Button>
-          </Grid>
-        </form> */}
       </Grid>
       <br />
     </Container>
