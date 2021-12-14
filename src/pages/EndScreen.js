@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AssessmentContext } from "../Helpers/Contexts";
+import axios from "axios";
 //material ui
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
@@ -10,6 +11,9 @@ import { getDescription } from "../Helpers/description";
 import { Container } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+const sgMail = require("@sendgrid/mail");
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const useStyles = makeStyles({
   title: {
@@ -28,37 +32,38 @@ const useStyles = makeStyles({
 const EndScreen = () => {
   const classes = useStyles();
   const { score, setScore } = useContext(AssessmentContext);
-  //const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
 
   setScore(score);
   console.log("score from endscreen----->", score);
 
   const averageScore = score.totalScore / allQuestions.length;
   //number of questions
-  // const selfAwarenessQuestions = allQuestions.filter(
-  //   (question) => question.category === "selfAwareness"
-  // );
-  // const empathyQuestions = allQuestions.filter(
-  //   (question) => question.category === "empathy"
-  // );
-  // const motivationQuestions = allQuestions.filter(
-  //   (question) => question.category === "motivation"
-  // );
-  // const socialSkillsQuestions = allQuestions.filter(
-  //   (question) => question.category === "socialSkills"
-  // );
-  // const selfManagementQuestions = allQuestions.filter(
-  //   (question) => question.category === "selfManagement"
-  // );
+  const selfAwarenessQuestions = allQuestions.filter(
+    (question) => question.category === "selfAwareness"
+  );
+  const empathyQuestions = allQuestions.filter(
+    (question) => question.category === "empathy"
+  );
+  const motivationQuestions = allQuestions.filter(
+    (question) => question.category === "motivation"
+  );
+  const socialSkillsQuestions = allQuestions.filter(
+    (question) => question.category === "socialSkills"
+  );
+  const selfManagementQuestions = allQuestions.filter(
+    (question) => question.category === "selfManagement"
+  );
   //average score for each category
-  // const averageSelfAwarenessScore =
-  //   score.selfAwareness / selfAwarenessQuestions.length;
-  // const averageEmpathyScore = score.empathy / empathyQuestions.length;
-  // const averageMotivationScore = score.motivation / motivationQuestions.length;
-  // const averageSocialSkillsScore =
-  //   score.socialSkills / socialSkillsQuestions.length;
-  // const averageSelfManagementScore =
-  //   score.selfManagement / selfManagementQuestions.length;
+  const averageSelfAwarenessScore =
+    score.selfAwareness / selfAwarenessQuestions.length;
+  const averageEmpathyScore = score.empathy / empathyQuestions.length;
+  const averageMotivationScore = score.motivation / motivationQuestions.length;
+  const averageSocialSkillsScore =
+    score.socialSkills / socialSkillsQuestions.length;
+  const averageSelfManagementScore =
+    score.selfManagement / selfManagementQuestions.length;
 
   const setDescription = (averageScore, skill, level) => {
     if (averageScore >= 4.0) {
@@ -74,17 +79,26 @@ const EndScreen = () => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(e.target.value);
-  };
-
-  // setDescription(averageEmpathyScore, "empathy");
-  // setDescription(averageSocialSkillsScore, "socialSkills");
+  setDescription(averageEmpathyScore, "empathy");
+  setDescription(averageSocialSkillsScore, "socialSkills");
 
   console.log("Average Score from EndScreen--->", averageScore);
 
   // get the information entered by the user
+  const postEmail = () => {
+    axios.post("http://localhost:3333/send-email", {
+      email: email,
+      name: name,
+      selfAwareness: setDescription(averageSelfAwarenessScore, "selfAwareness"),
+      empathy: setDescription(averageEmpathyScore, "empathy"),
+      motivation: setDescription(averageMotivationScore, "motivation"),
+      socialSkills: setDescription(averageSocialSkillsScore, "socialSkills"),
+      selfManagement: setDescription(
+        averageSelfManagementScore,
+        "selfManagement"
+      ),
+    });
+  };
 
   return (
     <Container>
@@ -95,7 +109,7 @@ const EndScreen = () => {
         <Box mt={2}></Box>
         <Typography>{setDescription(averageScore, "overAll")}</Typography>
       </Grid>
-      {/* <Box textAlign="center">
+      <Box textAlign="center">
         <h3>Self Awareness</h3>
         <p>{setDescription(averageSelfAwarenessScore, "selfAwareness")}</p>
       </Box>
@@ -114,14 +128,15 @@ const EndScreen = () => {
       <Box textAlign="center">
         <h3>Motivation</h3>
         <p>{setDescription(averageMotivationScore, "motivation")}</p>
-      </Box> */}
+      </Box>
       <Box mt={2}></Box>
 
       <Grid>
         <Typography variant="h6" align="center">
-          To get your full report, enter your email address below
+          To get your full report, enter your contact details below
         </Typography>
       </Grid>
+      <br />
       <Grid
         align="center"
         component="form"
@@ -132,24 +147,53 @@ const EndScreen = () => {
         autoComplete="off"
       >
         <TextField
-          id="standard-basic"
-          label="Enter your email"
-          variant="standard"
+          id="outlined-basic"
+          label="Name"
+          variant="outlined"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <br />
+        <br />
+        <TextField
+          id="outlined-basic"
+          label="Email"
+          variant="outlined"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </Grid>
-      <br />
       <Grid align="center">
         <Button
-          onClick={handleSubmit}
-          type="submit"
           variant="contained"
-          color="secondary"
-          //set the state of the email to the email entered by the user onClick
+          color="primary"
           className={classes.button}
+          onClick={() => postEmail()}
         >
-          Send me the full report
+          Submit
         </Button>
+
+        {/* <form onSubmit={postEmail()}>
+          <TextField
+            id="standard-basic"
+            label="Enter your email"
+            variant="standard"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Grid align="center">
+            <Button
+              type="submit"
+              variant="contained"
+              color="secondary"
+              //set the state of the email to the email entered by the user onClick
+              className={classes.button}
+            >
+              Send me the full report
+            </Button>
+          </Grid>
+        </form> */}
       </Grid>
+      <br />
     </Container>
   );
 };
