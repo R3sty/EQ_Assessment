@@ -35,7 +35,7 @@ const EndScreen = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const { view, setView } = useContext(AssessmentContext);
-
+  console.log(view);
   setScore(score);
   console.log("score from endscreen----->", score);
 

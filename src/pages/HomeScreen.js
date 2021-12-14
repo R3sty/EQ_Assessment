@@ -28,7 +28,7 @@ const useStyles = makeStyles({
 const HomeScreen = () => {
   const classes = useStyles();
   const { view, setView } = useContext(AssessmentContext);
-
+  console.log(view);
   return (
     <Container>
       <Grid item className={classes.marginAutoContainer}>
