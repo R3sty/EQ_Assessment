@@ -87,7 +87,7 @@ const EndScreen = () => {
 
   // get the information entered by the user
   const postEmail = () => {
-    axios.post("http://localhost:3333/send-email", {
+    axios.post("/send-email", {
       email: email,
       name: name,
       selfAwareness: setDescription(averageSelfAwarenessScore, "selfAwareness"),
