@@ -18,7 +18,7 @@ router.get("/", (req, res) => {
   });
 });
 
-app.use("/.netlify/functions/server", router);
+app.use("/.netlify/functions/helloWorld", router);
 
 app.post("/result", (req, res) => {
   req.body.email;
@@ -32,6 +32,7 @@ app.post("/result", (req, res) => {
 
 const sendGridAPI = process.env.REACT_APP_SENDGRID_API_KEY;
 console.log("sendgrid API----->", sendGridAPI);
+
 app.post("/send-email", (req, res) => {
   sgMail.setApiKey(sendGridAPI);
   const msg = {
@@ -108,8 +109,14 @@ John
     });
 });
 
-app.listen(3333, () => {
-  console.log("Server started on port 3333!");
-});
-
 module.exports.handler = serverless(app);
+
+// exports.handler = async function (event, context) {
+//   console.log("Hello World");
+//   return {
+//     statusCode: 200,
+//     body: JSON.stringify({
+//       message: "Hello World",
+//     }),
+//   };
+// };
