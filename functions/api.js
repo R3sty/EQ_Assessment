@@ -18,7 +18,7 @@ router.get("/", (req, res) => {
   });
 });
 
-app.use("/.netlify/functions/helloWorld", router);
+app.use("/.netlify/functions/api", router);
 
 app.post("/result", (req, res) => {
   req.body.email;
