@@ -65,31 +65,33 @@ Win the day!
 John
     </p>`,
   };
-  sgMail.send(msg).then(
-    () => {},
-    (error) => {
-      console.error(error);
-
-      if (error.response) {
-        console.error("ERROR------>", error.response.body);
-      }
-    }
-  );
-
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: "Email sent",
-      success: true,
-    }),
-  };
-  // sgMail
-  //   .send(msg)
-  //   .then((response) => {
-  //     console.log(response[0].statusCode);
-  //     console.log(response[0].headers);
-  //   })
-  //   .catch((error) => {
+  // sgMail.send(msg).then(
+  //   () => {},
+  //   (error) => {
   //     console.error(error);
-  //   });
+
+  //     if (error.response) {
+  //       console.error("ERROR------>", error.response.body);
+  //     }
+  //   }
+  // );
+  try {
+    await sgMail.send(msg);
+    return {
+      statusCode: 200,
+      body: "Message sent",
+    };
+  } catch (err) {
+    return {
+      statusCode: err.code,
+      body: JSON.stringify({ msg: err.message }),
+    };
+  }
+  // return {
+  //   statusCode: 200,
+  //   body: JSON.stringify({
+  //     message: "Email sent",
+  //     success: true,
+  //   }),
+  // };
 };
