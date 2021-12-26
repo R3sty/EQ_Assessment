@@ -1,14 +1,12 @@
 exports.handler = async function (event, context) {
-  const sgMail = require("@sendgrid/mail");
-
-  require("dotenv").config();
-
-  const sendGridAPI = process.env.REACT_APP_SENDGRID_API_KEY;
-  console.log("sendgrid API----->", sendGridAPI);
   console.log("EVENT----->", JSON.parse(event.body));
+  const parsedData = JSON.parse(event.body);
+  const sgMail = require("@sendgrid/mail");
+  require("dotenv").config();
+  const sendGridAPI = process.env.REACT_APP_SENDGRID_API_KEY;
+
   sgMail.setApiKey(sendGridAPI);
 
-  const parsedData = JSON.parse(event.body);
   const msg = {
     to: parsedData.email, // Change to your recipient
     from: "iral.resty@gmail.com", // Change to your verified sender
@@ -70,13 +68,9 @@ John
   };
   sgMail
     .send(msg)
-    .then(() => {
-      console.log("Email sent");
-      console.log("Event.body----->", event.body);
-      return {
-        message: "Email sent",
-        success: true,
-      };
+    .then((response) => {
+      console.log(response[0].statusCode);
+      console.log(response[0].headers);
     })
     .catch((error) => {
       console.error(error);
