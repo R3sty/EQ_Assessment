@@ -3,9 +3,7 @@ exports.handler = async function (event) {
   const parsedData = JSON.parse(event.body);
   const sgMail = require("@sendgrid/mail");
   require("dotenv").config();
-  const sendGridAPI = process.env.REACT_APP_SENDGRID_API_KEY;
-  sgMail.setApiKey(sendGridAPI);
-
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
   const msg = {
     to: parsedData.email, // Change to your recipient
     from: "iral.resty@gmail.com", // Change to your verified sender
