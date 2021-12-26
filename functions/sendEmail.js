@@ -77,6 +77,9 @@ John
   // );
   try {
     await sgMail.send(msg);
+    console.log("Email sent");
+    console.log("req.body----->", parsedData);
+    console.log("SENDGRID API----->", sendGridAPI);
     return {
       statusCode: 200,
       body: "Message sent",
