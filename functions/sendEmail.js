@@ -1,10 +1,9 @@
-exports.handler = async function (event, context) {
+exports.handler = async function (event) {
   console.log("EVENT----->", JSON.parse(event.body));
   const parsedData = JSON.parse(event.body);
   const sgMail = require("@sendgrid/mail");
   require("dotenv").config();
   const sendGridAPI = process.env.REACT_APP_SENDGRID_API_KEY;
-
   sgMail.setApiKey(sendGridAPI);
 
   const msg = {
@@ -66,13 +65,31 @@ Win the day!
 John
     </p>`,
   };
-  sgMail
-    .send(msg)
-    .then((response) => {
-      console.log(response[0].statusCode);
-      console.log(response[0].headers);
-    })
-    .catch((error) => {
+  sgMail.send(msg).then(
+    () => {},
+    (error) => {
       console.error(error);
-    });
+
+      if (error.response) {
+        console.error("ERROR------>", error.response.body);
+      }
+    }
+  );
+
+  return {
+    statusCode: 200,
+    body: JSON.stringify({
+      message: "Email sent",
+      success: true,
+    }),
+  };
+  // sgMail
+  //   .send(msg)
+  //   .then((response) => {
+  //     console.log(response[0].statusCode);
+  //     console.log(response[0].headers);
+  //   })
+  //   .catch((error) => {
+  //     console.error(error);
+  //   });
 };
