@@ -87,7 +87,7 @@ const EndScreen = () => {
 
   // get the information entered by the user
   const postEmail = () => {
-    axios.post("/send-email", {
+    axios.post("api/sendEmail", {
       email: email,
       name: name,
       selfAwareness: setDescription(averageSelfAwarenessScore, "selfAwareness"),
