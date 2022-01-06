@@ -1,9 +1,9 @@
 exports.handler = async function (event) {
-  console.log("EVENT----->", JSON.parse(event.body));
   const parsedData = JSON.parse(event.body);
   const sgMail = require("@sendgrid/mail");
   require("dotenv").config();
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
   const msg = {
     to: parsedData.email, // Change to your recipient
     from: process.env.SENDER_EMAIL, // Change to your verified sender
