@@ -7,6 +7,8 @@ exports.handler = async function (event) {
 
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
+  console.log("API Key--->", process.env.SENDGRID_API_KEY);
+
   const msg = {
     to: parsedData.email, // Change to your recipient
     from: process.env.SENDER_EMAIL, // Change to your verified sender
