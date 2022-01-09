@@ -71,6 +71,7 @@ John
   };
   try {
     await sgMail.send(msg);
+    console.log("API Key--->", process.env.SENDGRID_API_KEY);
     return {
       statusCode: 200,
       body: "Message sent successfully",
