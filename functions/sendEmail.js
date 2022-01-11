@@ -1,7 +1,11 @@
-const parsedData = JSON.parse(event.body);
 const sgMail = require("@sendgrid/mail");
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
 exports.handler = async function (event) {
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  // require("dotenv").config({
+  //   path: `${__dirname}/.env`,
+  // });
+  const parsedData = JSON.parse(event.body);
   const msg = {
     to: parsedData.email, // Change to your recipient
     from: process.env.SENDER_EMAIL, // Change to your verified sender
@@ -64,8 +68,10 @@ John
   };
   try {
     await sgMail.send(msg);
-    console.log(parsedData);
     console.log("Email sent successfully");
+    console.log("parsed data----->", parsedData);
+    console.log("API Key--->", process.env.SENDGRID_API_KEY);
+
     return {
       statusCode: 200,
       body: "Message sent successfully",
