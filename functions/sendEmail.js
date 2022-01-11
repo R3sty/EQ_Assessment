@@ -1,10 +1,10 @@
 const sgMail = require("@sendgrid/mail");
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 exports.handler = async function (event) {
   // require("dotenv").config({
   //   path: `${__dirname}/.env`,
   // });
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
   const parsedData = JSON.parse(event.body);
   const msg = {
     to: parsedData.email, // Change to your recipient
