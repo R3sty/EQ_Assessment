@@ -1,12 +1,8 @@
+const parsedData = JSON.parse(event.body);
+const sgMail = require("@sendgrid/mail");
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
 exports.handler = async function (event) {
-  const parsedData = JSON.parse(event.body);
-  const sgMail = require("@sendgrid/mail");
-  require("dotenv").config({
-    path: `${__dirname}/.env`,
-  });
-
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
   const msg = {
     to: parsedData.email, // Change to your recipient
     from: process.env.SENDER_EMAIL, // Change to your verified sender
