@@ -1,6 +1,5 @@
 const parsedData = JSON.parse(event.body);
 const sgMail = require("@sendgrid/mail");
-
 exports.handler = async function (event) {
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
   const msg = {
@@ -65,7 +64,8 @@ John
   };
   try {
     await sgMail.send(msg);
-    console.log("API Key--->", process.env.SENDGRID_API_KEY);
+    console.log(parsedData);
+    console.log("Email sent successfully");
     return {
       statusCode: 200,
       body: "Message sent successfully",
