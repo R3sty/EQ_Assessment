@@ -1,7 +1,8 @@
 [build]
 command = "npm run build"
 functions = "functions/"
-publish = "build" 
+publish = "build"
+
 
 [[redirects]]
   from = "/api/*"

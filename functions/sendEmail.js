@@ -9,8 +9,8 @@ exports.handler = async function (event) {
   const { email, name } = JSON.parse(event.body);
   const parsedData = JSON.parse(event.body);
   const msg = {
-    to: email, // Change to your recipient
-    from: SENDER_EMAIL, // Change to your verified sender
+    to: email,
+    from: SENDER_EMAIL,
     subject: "Your Emotional Intelligence Assessment Full Result",
     text: "Your Emotional Intelligence Assessment Full Result",
     html: `<div><p>Dear ${name},
