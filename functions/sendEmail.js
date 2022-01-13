@@ -72,7 +72,7 @@ John
     await sgMail.send(msg);
     console.log("Email sent successfully");
     console.log("parsed data----->", parsedData);
-    console.log("API Key--->", process.env.SENDGRID_API_KEY);
+    console.log("API Key--->", SENDGRID_API_KEY);
 
     return {
       statusCode: 200,
