@@ -1,17 +1,19 @@
 const sgMail = require("@sendgrid/mail");
+const { SENDGRID_API_KEY, SENDER_EMAIL } = process.env;
 
 exports.handler = async function (event) {
   // require("dotenv").config({
   //   path: `${__dirname}/.env`,
   // });
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  sgMail.setApiKey(SENDGRID_API_KEY);
+  const { email, name } = JSON.parse(event.body);
   const parsedData = JSON.parse(event.body);
   const msg = {
-    to: parsedData.email, // Change to your recipient
-    from: process.env.SENDER_EMAIL, // Change to your verified sender
+    to: email, // Change to your recipient
+    from: SENDER_EMAIL, // Change to your verified sender
     subject: "Your Emotional Intelligence Assessment Full Result",
     text: "Your Emotional Intelligence Assessment Full Result",
-    html: `<div><p>Dear ${parsedData.name},
+    html: `<div><p>Dear ${name},
     </br>
     </br>
     Here is your full emotional assessment results.
