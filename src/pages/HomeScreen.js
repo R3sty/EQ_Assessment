@@ -68,6 +68,7 @@ theme.typography.body1 = {
 const HomeScreen = () => {
   const classes = useStyles();
   const { view, setView } = useContext(AssessmentContext);
+  console.log(view);
   return (
     <Container>
       <ThemeProvider theme={theme}>
