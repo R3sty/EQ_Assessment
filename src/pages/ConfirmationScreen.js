@@ -9,8 +9,6 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    backgroundColor: "#f5f5f5",
-    boxShadow: "0px 0px 10px #DCDCDC",
   },
   closing: {
     fontSize: "2rem",

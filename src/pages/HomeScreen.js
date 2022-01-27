@@ -14,7 +14,7 @@ import { createTheme, ThemeProvider } from "@material-ui/core";
 import eq_icon from "../assets/eq_icon.png";
 import eq_icon2 from "../assets/eq_icon2.png";
 import eq_icon3 from "../assets/eq_icon3.png";
-
+import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 
 const useStyles = makeStyles({
@@ -27,8 +27,8 @@ const useStyles = makeStyles({
     color: "white",
   },
   marginAutoContainer: {
-    marginTop: 10,
-    padding: "6rem",
+    marginTop: 0,
+    padding: "4rem",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -72,7 +72,7 @@ const HomeScreen = () => {
   return (
     <Container>
       <ThemeProvider theme={theme}>
-        <Box item className={classes.marginAutoContainer}>
+        <Box item className={classes.marginAutoContainer} id="home">
           <Box padding={0} marginTop={-4} marginBottom={4}>
             <Card className={classes.Card}>
               <CardMedia className={classes.Media} image={eq_icon} />
@@ -102,7 +102,7 @@ const HomeScreen = () => {
         >
           <ScrollIntoView selector="#instructions2">
             <KeyboardArrowDownIcon
-              style={{ fontSize: "6rem", color: "#872e2e" }}
+              style={{ fontSize: "4rem", color: "#872e2e" }}
             />
           </ScrollIntoView>
         </Box>
@@ -135,7 +135,7 @@ const HomeScreen = () => {
         >
           <ScrollIntoView selector="#instructions3">
             <KeyboardArrowDownIcon
-              style={{ fontSize: "6rem", color: "#872e2e" }}
+              style={{ fontSize: "4rem", color: "#872e2e" }}
             />
           </ScrollIntoView>
         </Box>
@@ -163,7 +163,7 @@ const HomeScreen = () => {
             If a question is very close and you can’t decide which statement
             applies to you best, just choose the answer that seems best.
           </Typography>
-          <Box marginTop={10}>
+          <Box>
             <Box marginBottom={2}>
               <Typography
                 variant="h5"
@@ -188,6 +188,15 @@ const HomeScreen = () => {
               </Button>
             </Grid>
           </Box>
+        </Box>
+        <Box
+          sx={{ display: "flex", justifyContent: "center", paddingTop: "2rem" }}
+        >
+          <ScrollIntoView selector="#home">
+            <KeyboardArrowUpIcon
+              style={{ fontSize: "4rem", color: "#872e2e" }}
+            />
+          </ScrollIntoView>
         </Box>
       </ThemeProvider>
     </Container>
