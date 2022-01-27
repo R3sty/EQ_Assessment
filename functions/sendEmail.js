@@ -11,7 +11,6 @@ exports.handler = async function (event) {
   const msg = {
     to: email,
     from: SENDER_EMAIL,
-    bcc: SENDER_EMAIL,
     subject: "Your Emotional Intelligence Assessment Full Result",
     text: "Your Emotional Intelligence Assessment Full Result",
     html: `
