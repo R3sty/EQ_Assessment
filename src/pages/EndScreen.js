@@ -11,9 +11,6 @@ import { getDescription } from "../Helpers/description";
 import { Container } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-const sgMail = require("@sendgrid/mail");
-
-sgMail.setApiKey(process.env.REACT_APP_SENDGRID_API_KEY);
 
 const useStyles = makeStyles({
   title: {
